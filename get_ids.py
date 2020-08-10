@@ -11,6 +11,9 @@ df = pd.read_csv(sys.argv[1], names = ["ll_from", "ll_lang", "ll_title"])
 print(df.head())
 en_ids = []
 for title in tqdm.tqdm(df['ll_title']):
-    en_ids.append(get_id_from_title(title))
+    try:
+        en_ids.append(get_id_from_title(title))
+    except:
+        en_ids.append(-1)
 df['ll_target_id'] = en_ids
 df.to_csv('page_id_pair.csv',index=False)
